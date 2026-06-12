@@ -1,34 +1,20 @@
-\# AI Market Command Center
+# Pactolus
 
+Pactolus is an AI-powered financial intelligence platform.
 
-
-This project is an AI-powered financial market dashboard.
-
-
-
-It analyzes stocks, ETFs, bonds, commodities, and market trends using machine learning.
-
-
+It analyzes stocks, ETFs, bonds, commodities, and macroeconomic conditions using machine learning and quantitative finance techniques.
 
 Features:
 
-\- AI asset ranking
+- AI asset ranking
+- Portfolio optimization
+- Market weather forecasts
+- Risk alerts
+- Buy / Hold / Sell recommendations
+- Dynamic portfolio weights
+- Streamlit dashboard
+- Continuous updates
 
-\- Portfolio weight recommendations
+Run locally:
 
-\- Market weather forecast
-
-\- Risk alerts
-
-\- Buy / hold / avoid guidance
-
-\- Streamlit dashboard
-
-
-
-Run locally with:
-
-
-
-python -m streamlit run market\_dashboard.py
-
+python -m streamlit run pactolus.py

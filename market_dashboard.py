@@ -1,3 +1,5 @@
+import smtplib
+from email.message import EmailMessage
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -37,6 +39,20 @@ close = data["Close"]
 volume = data["Volume"]
 returns = close.pct_change()
 
+def send_email_alert(subject, body, to_email):
+    sender_email = st.secrets["EMAIL_ADDRESS"]
+    sender_password = st.secrets["EMAIL_PASSWORD"]
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = to_email
+    msg.set_content(body)
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(sender_email, sender_password)
+        smtp.send_message(msg)
+        
 def build_features(ticker):
     df = pd.DataFrame()
     df["Close"] = close[ticker]
@@ -306,3 +322,16 @@ if watch_alerts:
     st.write("Watch Alerts:")
     for alert in watch_alerts:
         st.warning(alert)
+st.subheader("Phase 17: Email Alert System")
+
+user_email = st.text_input("Enter your email for alerts")
+
+send_test_alert = st.button("Send Test Alert")
+
+if send_test_alert and user_email:
+    send_email_alert(
+        subject="Pactolus Test Alert",
+        body="This is a test alert from Pactolus. Your email alert system is working.",
+        to_email=user_email
+    )
+    st.success("Test alert sent.")

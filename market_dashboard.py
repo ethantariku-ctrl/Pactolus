@@ -335,3 +335,53 @@ if send_test_alert and user_email:
         to_email=user_email
     )
     st.success("Test alert sent.")
+st.subheader("Phase 17.1: Smart Alert Engine")
+
+auto_alert_email = st.text_input(
+    "Email for smart alerts",
+    value="ethantariku@gmail.com"
+)
+
+alert_messages = []
+
+if market_weather == "Stormy / Defensive":
+    alert_messages.append("Storm Warning: Market conditions are defensive.")
+
+if risk_level == "High":
+    alert_messages.append("High Risk Alert: Pactolus detects elevated market risk.")
+
+if len(overbought) >= 3:
+    alert_messages.append("Overbought Alert: Several assets have RSI above 75.")
+
+if len(weak_assets) >= 5:
+    alert_messages.append("Weak Market Alert: Many assets are below their 200-day moving average.")
+
+if len(selected) > 0:
+    top_asset = selected.iloc[0]["Ticker"]
+    alert_messages.append(f"Top Asset Update: Pactolus currently ranks {top_asset} highest.")
+
+alert_body = "PACTOLUS SMART ALERT REPORT\n\n"
+
+if alert_messages:
+    for msg in alert_messages:
+        alert_body += "- " + msg + "\n"
+else:
+    alert_body += "No major danger alerts detected.\n"
+
+alert_body += "\nRecommended Portfolio:\n"
+
+for _, row in selected.iterrows():
+    alert_body += (
+        f"- {row['Ticker']}: "
+        f"{round(row['Portfolio Weight'] * 100, 2)}% | "
+        f"{row['Action']}\n"
+    )
+
+if st.button("Send Smart Alert Now"):
+    send_email_alert(
+        subject="Pactolus Smart Market Alert",
+        body=alert_body,
+        to_email=auto_alert_email
+    )
+
+    st.success("Smart alert sent.")

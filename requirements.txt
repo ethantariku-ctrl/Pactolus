@@ -8,3 +8,10 @@ yfinance
 pandas
 matplotlib
 scikit-learn
+vaderSentiment
+streamlit
+yfinance
+pandas
+matplotlib
+scikit-learn
+vaderSentiment
